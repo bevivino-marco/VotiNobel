@@ -6,36 +6,37 @@ import it.polito.tdp.dao.EsameDAO;
 
 public class Model {
     EsameDAO dao = new EsameDAO();
-    List <Esame> parziale = new LinkedList <Esame >();
-    int M=0;
+    private List <Esame> parziale = new LinkedList <Esame >();
+    private List <List <Esame>> lista = new LinkedList <List<Esame>>();
+    
+    private int crediti=0;
+	private int MAX = 0;
     
 	public List<Esame> calcolaSottoinsiemeEsami(int numeroCrediti) {
 	    List <Esame> lE = new LinkedList <Esame >(dao.getTuttiEsami());
 	    
-	    int crediti=0;
-	    int MAX=0;
-	    int somma=0;
-	    if (crediti >= numeroCrediti) {
-	    	if (crediti == numeroCrediti) {
-	    		if (M<= MAX) {
-	    		M=MAX;
-	    		return parziale;
-	    		}
-	    	}
-	    	
+	   
+	    if (crediti== numeroCrediti) {
+	    	setMax(parziale);
+	    	lista.add(parziale);
+	    	return parziale;
 	    }
+	    	
+	    		
+	    	
+	    	
+	    
 	    
 		for ( Esame e : lE) {
-			if (e.getCrediti()+crediti< numeroCrediti) {
-				crediti+=e.getCrediti();
+			if (crediti+e.getCrediti()<= numeroCrediti) {
 				parziale.add(e);
-				somma+=e.getVoto();
-				
 				calcolaSottoinsiemeEsami(numeroCrediti);
-				
 				parziale.remove(e);
-				
 			}
+			
+			return null;
+				
+			
 			
 			
 		}
@@ -43,4 +44,47 @@ public class Model {
 		return null;
 	}
 
+	public void setMax (List <Esame>parziale) {
+		int somma=0;
+		for (Esame e : parziale) {
+			somma+= e.getVoto();
+		}
+		if (somma>MAX) {
+			MAX=somma;
+		}
+		
+	}
+	public List<List<Esame>> esamiMassimi (List <List <Esame>> l) {
+		for (List <Esame> le : l) {
+			int s = 0;
+			for (Esame e :le) {
+				s+= e.getVoto();
+			}
+			if (s<MAX) {
+				l.remove(le);
+			}
+		}
+		return l;
+		
+	}
+
+	public List<List<Esame>> getLista() {
+		return lista;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
