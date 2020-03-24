@@ -8,12 +8,13 @@ public class Model {
     EsameDAO dao = new EsameDAO();
     private List <Esame> parziale = new LinkedList <Esame >();
     private List <List <Esame>> lista = new LinkedList <List<Esame>>();
+    private List <Esame> lE = new LinkedList <Esame >(dao.getTuttiEsami());
     
     private int crediti=0;
 	private int MAX = 0;
+	private int media =0;
     
 	public List<Esame> calcolaSottoinsiemeEsami(int numeroCrediti) {
-	    List <Esame> lE = new LinkedList <Esame >(dao.getTuttiEsami());
 	    
 	   
 	    if (crediti== numeroCrediti) {
@@ -46,11 +47,13 @@ public class Model {
 
 	public void setMax (List <Esame>parziale) {
 		int somma=0;
+		int m =0;
 		for (Esame e : parziale) {
 			somma+= e.getVoto();
 		}
-		if (somma>MAX) {
-			MAX=somma;
+		m = somma/(parziale.size());
+		if (m>MAX) {
+			MAX=m;
 		}
 		
 	}
@@ -60,7 +63,7 @@ public class Model {
 			for (Esame e :le) {
 				s+= e.getVoto();
 			}
-			if (s<MAX) {
+			if ((s/(le.size()))<MAX) {
 				l.remove(le);
 			}
 		}
