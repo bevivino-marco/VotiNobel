@@ -5,20 +5,25 @@ import java.util.*;
 import it.polito.tdp.dao.EsameDAO;
 
 public class Model {
-    EsameDAO dao = new EsameDAO();
+	
+    
     private int L;
     private List <Esame> esami;
-    private Set <Esame> parziale;
+     
     private Set <Esame> best;
     private double media_best;
+    public Model () {
+		EsameDAO dao = new EsameDAO();
+		this.esami= dao.getTuttiEsami();
+	}
     
 	public Set<Esame> calcolaSottoinsiemeEsami(int numeroCrediti) {
-		esami = new ArrayList < Esame> (dao.getTuttiEsami());
-		parziale = new HashSet<Esame>();
+		
+		Set <Esame> parziale = new HashSet<>();
 		best = null;
-		L=0;
+		
 		media_best=0.0;
-		cerca(parziale, L, numeroCrediti);
+		cerca(parziale, 0, numeroCrediti);
 		return best;
 	    
 	   
@@ -39,7 +44,7 @@ public class Model {
 				return;
 			}else return;
 			
-		}if (L == parziale.size())
+		}if (L == esami.size())
 			return;
 		
 		
