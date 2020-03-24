@@ -1,11 +1,15 @@
 package it.polito.tdp.model;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Esame {
 
 	private String codins;
 	private String nomeCorso;
 	private int voto;
 	private int crediti;
+	private List <Esame>mappa;
 
 	public Esame() {
 
@@ -82,6 +86,8 @@ public class Esame {
 	
 	public Esame clone() {
 		Esame e = new Esame(this.codins,this.nomeCorso,this.voto,this.crediti);
+		e.mappa = new LinkedList<>(this.mappa) ;
+		
 		return e;
 	}
 

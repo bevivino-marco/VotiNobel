@@ -18,7 +18,6 @@ public class Model {
 	    
 	   
 	    if (crediti== numeroCrediti) {
-	    	setMax(parziale);
 	    	lista.add(parziale);
 	    	return parziale;
 	    }
@@ -29,23 +28,24 @@ public class Model {
 	    
 	    
 		for ( Esame e : lE) {
-			if (crediti+e.getCrediti()< numeroCrediti && !parziale.contains(e)) {
+			if (crediti+e.getCrediti()<= numeroCrediti && !parziale.contains(e)) {
 				parziale.add(e);
 				crediti+=e.getCrediti();
 				calcolaSottoinsiemeEsami(numeroCrediti);
 				parziale.remove(e);
+				crediti-=e.getCrediti();
 			}
 			
-			return null;
+			
 				
 			
 			
 			
 		}
 		
-		return null;
+		return parziale;
 	}
-/*
+
 	public void setMax (List <Esame>parziale) {
 		int somma=0;
 		int m =0;
@@ -81,9 +81,11 @@ public class Model {
 		return dao.getTuttiEsami();
 	}
 	
+	/*public void addL (List<Esame> parziale) {
+		lista.add(parziale);
+	}*/
 	
 	
-	*/
 	
 	
 	
