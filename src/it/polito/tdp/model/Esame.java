@@ -79,5 +79,10 @@ public class Esame {
 	public String toString() {
 		return String.format("codins: %-6s  crediti: %-2d  voto: %-2d  %s", codins, crediti, voto, nomeCorso);
 	}
+	
+	public Esame clone() {
+		Esame e = new Esame(this.codins,this.nomeCorso,this.voto,this.crediti);
+		return e;
+	}
 
 }
