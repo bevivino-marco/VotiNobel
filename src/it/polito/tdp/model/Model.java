@@ -12,7 +12,7 @@ public class Model {
     
     private int crediti=0;
 	private int MAX = 0;
-	private int media =0;
+	
     
 	public List<Esame> calcolaSottoinsiemeEsami(int numeroCrediti) {
 	    
@@ -29,8 +29,9 @@ public class Model {
 	    
 	    
 		for ( Esame e : lE) {
-			if (crediti+e.getCrediti()<= numeroCrediti) {
+			if (crediti+e.getCrediti()< numeroCrediti && !parziale.contains(e)) {
 				parziale.add(e);
+				crediti+=e.getCrediti();
 				calcolaSottoinsiemeEsami(numeroCrediti);
 				parziale.remove(e);
 			}
@@ -44,7 +45,7 @@ public class Model {
 		
 		return null;
 	}
-
+/*
 	public void setMax (List <Esame>parziale) {
 		int somma=0;
 		int m =0;
@@ -74,10 +75,15 @@ public class Model {
 	public List<List<Esame>> getLista() {
 		return lista;
 	}
+
+	public List<Esame> getEsami() {
+		// TODO Auto-generated method stub
+		return dao.getTuttiEsami();
+	}
 	
 	
 	
-	
+	*/
 	
 	
 	

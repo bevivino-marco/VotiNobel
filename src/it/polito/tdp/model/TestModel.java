@@ -6,8 +6,9 @@ public class TestModel {
 		// TODO Auto-generated method stub
 		
 		Model model = new Model();
-		model.calcolaSottoinsiemeEsami(20);
-		
+		System.out.println(model.getEsami().toString());
+		model.calcolaSottoinsiemeEsami(18);
+		System.out.println(model.esamiMassimi(model.getLista()).toString());
 	}
 
 }
