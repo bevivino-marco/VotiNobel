@@ -57,15 +57,17 @@ public class Model {
 		cerca (parziale, L+1, credMax);
 		parziale.remove(esami.get(L));*/
 		for (Esame e : esami) {
-			if ((getC(parziale)+e.getCrediti())<=credMax)
+			
+			if ((getC(parziale)+e.getCrediti())<=credMax && !parziale.contains(e))
 			{
 			parziale.add(e);
 			cerca (parziale, L+1, credMax);
 			parziale.remove(e);
+			
 			}
 			
 		}
-		
+		//se inserisco un numero di crediti superiore a 64 (circa) il programma va in loop
 		
 	}
 	
