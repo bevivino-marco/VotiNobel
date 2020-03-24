@@ -6,94 +6,86 @@ import it.polito.tdp.dao.EsameDAO;
 
 public class Model {
     EsameDAO dao = new EsameDAO();
-    private List <Esame> parziale = new LinkedList <Esame >();
-    private List <List <Esame>> lista = new LinkedList <List<Esame>>();
-    private List <Esame> lE = new LinkedList <Esame >(dao.getTuttiEsami());
+    private int L;
+    private List <Esame> esami;
+    private Set <Esame> parziale;
+    private Set <Esame> best;
+    private double media_best;
     
-    private int crediti=0;
-	private int MAX = 0;
-	
-    
-	public List<Esame> calcolaSottoinsiemeEsami(int numeroCrediti) {
+	public Set<Esame> calcolaSottoinsiemeEsami(int numeroCrediti) {
+		esami = new ArrayList < Esame> (dao.getTuttiEsami());
+		parziale = new HashSet<Esame>();
+		best = null;
+		L=0;
+		media_best=0.0;
+		cerca (parziale, L, numeroCrediti);
+		return best;
 	    
 	   
-	    if (crediti== numeroCrediti) {
-	    	lista.add(parziale);
-	    	return parziale;
-	    }
-	    	
-	    		
-	    	
-	    	
 	    
-	    
-		for ( Esame e : lE) {
-			if (crediti+e.getCrediti()<= numeroCrediti && !parziale.contains(e)) {
-				parziale.add(e);
-				crediti+=e.getCrediti();
-				calcolaSottoinsiemeEsami(numeroCrediti);
-				parziale.remove(e);
-				crediti-=e.getCrediti();
-			}
-			
-			
-				
-			
-			
-			
-		}
-		
-		return parziale;
 	}
 
-	public void setMax (List <Esame>parziale) {
+	
+	
+	
+	public void cerca (Set <Esame> parziale, int L, int credMax ) {
+		// terminale
+		if (getC(parziale)==credMax) {
+			double media;
+			media = calcolaMedia(parziale);
+			if( media> media_best){
+				best = new HashSet <Esame>(parziale);
+				media_best =media;
+				return;
+			}else return;
+			
+		}if (L == parziale.size())
+			return;
+		
+		
+		//normale
+		// non aggiungo
+		/*cerca (parziale, L+1, credMax);
+		
+		//lo aggiungo
+		parziale.add(esami.get(L));
+		cerca (parziale, L+1, credMax);
+		parziale.remove(esami.get(L));*/
+		for (Esame e : esami) {
+			if ((getC(parziale)+e.getCrediti())>credMax)
+				return;
+			parziale.add(e);
+			cerca (parziale, L+1, credMax);
+			parziale.remove(e);
+		}
+		
+		
+	}
+	
+	private double calcolaMedia(Set<Esame> parziale) {
+		int voto;
+		double media =0.0;
 		int somma=0;
-		int m =0;
+		int crediti = 0;
 		for (Esame e : parziale) {
-			somma+= e.getVoto();
-		}
-		m = somma/(parziale.size());
-		if (m>MAX) {
-			MAX=m;
+			voto = e.getVoto();
+			crediti+=e.getCrediti();
+			somma+=voto*e.getCrediti();
 		}
 		
+		return somma/crediti;
 	}
-	public List<List<Esame>> esamiMassimi (List <List <Esame>> l) {
-		for (List <Esame> le : l) {
-			int s = 0;
-			for (Esame e :le) {
-				s+= e.getVoto();
-			}
-			if ((s/(le.size()))<MAX) {
-				l.remove(le);
-			}
+
+
+
+
+	public int getC (Set <Esame> parziale) {
+		int somma=0;
+		for (Esame e: parziale) {
+			somma+= e.getCrediti();
 		}
-		return l;
-		
+		return somma;
 	}
-
-	public List<List<Esame>> getLista() {
-		return lista;
-	}
-
-	public List<Esame> getEsami() {
-		// TODO Auto-generated method stub
-		return dao.getTuttiEsami();
-	}
-	
-	/*public void addL (List<Esame> parziale) {
-		lista.add(parziale);
-	}*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

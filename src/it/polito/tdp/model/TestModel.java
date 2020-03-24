@@ -8,7 +8,7 @@ public class TestModel {
 		Model model = new Model();
 		//System.out.println(model.getEsami().toString());
 		model.calcolaSottoinsiemeEsami(18);
-		System.out.println(model.getLista());
+		
 	}
 
 }
