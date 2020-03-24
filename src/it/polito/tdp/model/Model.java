@@ -18,7 +18,7 @@ public class Model {
 		best = null;
 		L=0;
 		media_best=0.0;
-		cerca (parziale, L, numeroCrediti);
+		cerca(parziale, L, numeroCrediti);
 		return best;
 	    
 	   
@@ -52,11 +52,13 @@ public class Model {
 		cerca (parziale, L+1, credMax);
 		parziale.remove(esami.get(L));*/
 		for (Esame e : esami) {
-			if ((getC(parziale)+e.getCrediti())>credMax)
-				return;
+			if ((getC(parziale)+e.getCrediti())<=credMax)
+			{
 			parziale.add(e);
 			cerca (parziale, L+1, credMax);
 			parziale.remove(e);
+			}
+			
 		}
 		
 		

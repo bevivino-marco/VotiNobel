@@ -3,6 +3,7 @@ package it.polito.tdp.main;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import it.polito.tdp.model.Model;
 import it.polito.tdp.model.Esame;
@@ -35,8 +36,8 @@ public class VotiNobelController {
     void doCalcolaCombinazione(ActionEvent event) {
     		try {
     			int numeroCrediti = Integer.parseInt(txtInput.getText());
-    			List<Esame> voti = model.calcolaSottoinsiemeEsami(numeroCrediti);
-    			txtResult.appendText(model.esamiMassimi(model.getLista()).toString());
+    			Set<Esame> voti = model.calcolaSottoinsiemeEsami(numeroCrediti);
+    			txtResult.appendText(voti.toString());
     			
     		} catch (NumberFormatException e) {
     			txtResult.setText("Inserire un numero di crediti > 0");
