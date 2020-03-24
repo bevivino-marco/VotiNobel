@@ -68,6 +68,8 @@ public class Model {
 			
 		}
 		//se inserisco un numero di crediti superiore a 64 (circa) il programma va in loop
+		// o, più probabile, ci mette troppo tempo ad elaborare , posso renderlo piu veloce
+		// tenendo il ciclo for, se è possibile.
 		
 	}
 	
